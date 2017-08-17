@@ -1,3 +1,6 @@
 [submodule "360login"]
 	path = 360login
 	url = https://github.com/comwrg/360login
+[submodule "yundama"]
+	path = yundama
+	url = https://github.com/comwrg/yundama

@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>360 ssp information collection</title>
+    <script src="../static/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
 </head>
 <body>
-
+    <div class="container" style="margin-top: 100px;">
+        <h1 align="center">360信息获取</h1>
+        <form action="upload" method="post" enctype="multipart/form-data">
+            <div class="input-group" style="margin: 10px">
+                <span class="input-group-addon">云打码账号:</span>
+                <input class="form-control" type="text" name="yuser"><br>
+            </div>
+            <div class="input-group" style="margin: 10px">
+                <span class="input-group-addon">云打码密码:</span>
+                <input class="form-control" type="text" name="ypwd"><br>
+            </div>
+            <input class="form-control" type="file" name="txt" style="margin: 10px">
+            <input class="btn" type="submit" value="提 交" style="width: 200px; margin: auto; display: block">
+        </form>
+    </div>
 </body>
 </html>

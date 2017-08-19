@@ -6,6 +6,7 @@
     <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
     <script src="../static/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/spinner.css">
 </head>
 <body>
     <div class="container" style="margin-top: 100px;">
@@ -22,9 +23,11 @@
             <input class="form-control" type="file" name="txt" style="margin: 10px">
             <input class="btn" type="submit" value="提 交" style="width: 200px; margin: auto; display: block">
         </form>
+        <div class="spinner"></div>
     </div>
 </body>
 <script>
+    $(".spinner").hide();
     var download = function (content, filename) {
         var eleLink = document.createElement('a');
         eleLink.download = filename;
@@ -50,7 +53,13 @@
             mimeType: 'multipart/form-data',
             contentType:false,
             cache:false,
-            processData:false
+            processData:false,
+            beforeSend: function () {
+                $('.spinner').show();
+            },
+            complete: function () {
+                $('.spinner').hide();
+            }
         }).success(function (r) {
             download(r, 'guys.txt')
         })

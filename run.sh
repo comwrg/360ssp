@@ -1,1 +1,1 @@
-gunicorn app:app -p run.pid -b 0.0.0.0:5001 -D
+gunicorn app:app -p run.pid -b 0.0.0.0:5001 -D --timeout 0 -w 2

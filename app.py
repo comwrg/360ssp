@@ -25,17 +25,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
 @app.route('/upload', methods=['POST'])
 def upload():
     yuser = request.form['yuser']
     ypwd = request.form['ypwd']
     txt = request.files['txt']
     txt = deal(yuser, ypwd, txt.read().decode('utf-8'))
-    res = make_response(txt)
-    res.headers["Content-Disposition"] = "attachment; filename=guys.txt"
-    return res
-
+    return txt
 
 def deal(yuser, ypwd, txt):
     y = yundama.Yundama(yuser, ypwd)

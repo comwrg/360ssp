@@ -38,7 +38,7 @@ def deal(yuser, ypwd, txt):
     lines = []
     for line in txt.split('\r\n'):
         try:
-            u, p = line.split('\t')
+            u, p = line.strip().split('\t')
         except:
             continue
         u, p = u.strip(), p.strip()

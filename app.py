@@ -52,7 +52,7 @@ def deal(yuser, ypwd, txt):
         lines.append('{user}\t{pwd}'.format(user=u, pwd=p))
         if not r:
             # login successful
-            j = l.get_info()
+            j = l.get_info_yesterday()
             lines.append('网站名称\t审核状态\t封禁状态\t网站域名\t广告位数\t展示数\t点击数\t点击率\t预估收入')
             for item in j['result']:
                 names = ('name_cn', 'status', 'forbid_status', 'website', 'adspacecnts', 'ns', 'nc', 'ctr', 'income')

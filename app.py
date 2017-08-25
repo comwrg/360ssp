@@ -43,14 +43,20 @@ def deal(yuser, ypwd, txt):
             continue
         u, p = u.strip(), p.strip()
         l = _360ssp._360ssp(u, p)
-        r = l.verify()
-        code = ''
-        if r:
-            cid = y.upload(r, 1000)
-            code = y.result_loop(cid)
-        r = l.login(code)
+        need_captcha = l.verify()
+        login_res = None
+        if need_captcha:
+            for _ in range(3):
+                # need captcha
+                cid = y.upload(need_captcha, 1000)
+                code = y.result_loop(cid)
+                login_res = l.login(code)
+                # if login success, break loop
+                if not login_res: break
+        else:
+            login_res = l.login('')
         lines.append('{user}\t{pwd}'.format(user=u, pwd=p))
-        if not r:
+        if not login_res:
             # login successful
             j = l.get_info_yesterday()
             lines.append('网站名称\t审核状态\t封禁状态\t网站域名\t广告位数\t展示数\t点击数\t点击率\t预估收入')

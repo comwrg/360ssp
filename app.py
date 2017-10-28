@@ -48,20 +48,25 @@ def deal(yuser, ypwd, txt):
         if r:
             cid = y.upload(r, 1000)
             code = y.result_loop(cid)
-        r = l.login(code)
-        lines.append('{user}\t{pwd}'.format(user=u, pwd=p))
-        if not r:
-            # login successful
-            j = l.get_info_yesterday()
-            lines.append('网站名称\t审核状态\t封禁状态\t网站域名\t广告位数\t展示数\t点击数\t点击率\t预估收入')
-            for item in j['result']:
-                names = ('name_cn', 'status', 'forbid_status', 'website', 'adspacecnts', 'ns', 'nc', 'ctr', 'income')
-                lnames = [filter_html(str(item[name])) for name in names]
-                lines.append('\t'.join(lnames))
-        else:
-            # login failed
-            lines.append('密码错误')
-        lines.append('')
+        while True:
+            r = l.login(code)
+            lines.append('{user}\t{pwd}'.format(user=u, pwd=p))
+            if not r:
+                # login successful
+                j = l.get_info_yesterday()
+                lines.append('网站名称\t审核状态\t封禁状态\t网站域名\t广告位数\t展示数\t点击数\t点击率\t预估收入')
+                for item in j['result']:
+                    names = ('name_cn', 'status', 'forbid_status', 'website', 'adspacecnts', 'ns', 'nc', 'ctr', 'income')
+                    lnames = [filter_html(str(item[name])) for name in names]
+                    lines.append('\t'.join(lnames))
+                    break
+            elif r.find('78000') > 0:
+                continue
+            else:
+                # login failed
+                lines.append('密码错误')
+                break
+            lines.append('')
     return '\r\n'.join(lines)
 
 
